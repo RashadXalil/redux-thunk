@@ -1,30 +1,18 @@
 import React from 'react'
-import * as yup from 'yup'
 import 'antd/dist/antd.css'
 import { Form, Input, Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { postData } from '../../../redux/actions/action'
-
-let schema = yup.object().shape({
-  companyName: yup.string().required(),
-  contactName: yup.string().required(),
-  contactTitle: yup.string().required(),
-})
-
-const yupSync = {
-  validator({ field }, value) {
-    schema.validateSyncAt(field, { [field]: value })
-  },
-}
+import { toast, Toaster } from 'react-hot-toast'
 
 function Add() {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
 
   const onFinish = (values) => {
-    console.log('Success:', values)
     form.resetFields()
     dispatch(postData(values))
+    toast.success('customer created !')
   }
 
   const formStyle = {
@@ -41,15 +29,15 @@ function Add() {
     <div style={{ padding: '20px' }}>
       <h1 style={{ textAlign: 'center' }}>Add order</h1>
       <Form form={form} name="form1" onFinish={onFinish} style={formStyle}>
-        <Form.Item name="companyName" label="companyName" rules={[yupSync]}>
+        <Form.Item name="companyName" label="companyName">
           <Input />
         </Form.Item>
 
-        <Form.Item name="contactName" label="contactName" rules={[yupSync]}>
+        <Form.Item name="contactName" label="contactName">
           <Input />
         </Form.Item>
 
-        <Form.Item name="contactTitle" label="contactTitle" rules={[yupSync]}>
+        <Form.Item name="contactTitle" label="contactTitle">
           <Input />
         </Form.Item>
 
@@ -59,6 +47,7 @@ function Add() {
           </Button>
         </Form.Item>
       </Form>
+      <Toaster />
     </div>
   )
 }

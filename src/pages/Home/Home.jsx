@@ -5,7 +5,7 @@ export const Home = () => {
   return (
     <div>
       homePage
-      <ul style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <ul style={{ display: 'flex', justifyContent: 'space-around' }}>
         <Link to="/customers">
           <li>Customers</li>
         </Link>
